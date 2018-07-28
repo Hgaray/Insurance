@@ -1,0 +1,6 @@
+E:\Insurance\Insurance\InsuranceViewModel\bin\Debug\netstandard1.4\InsuranceViewModel.deps.json
+E:\Insurance\Insurance\InsuranceViewModel\bin\Debug\netstandard1.4\InsuranceViewModel.dll
+E:\Insurance\Insurance\InsuranceViewModel\bin\Debug\netstandard1.4\InsuranceViewModel.pdb
+E:\Insurance\Insurance\InsuranceViewModel\obj\Debug\netstandard1.4\InsuranceViewModel.AssemblyInfo.cs
+E:\Insurance\Insurance\InsuranceViewModel\obj\Debug\netstandard1.4\InsuranceViewModel.dll
+E:\Insurance\Insurance\InsuranceViewModel\obj\Debug\netstandard1.4\InsuranceViewModel.pdb
