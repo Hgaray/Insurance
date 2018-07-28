@@ -127,7 +127,7 @@ namespace InsuranceAppi.Models
         }       
 
 
-        public ResponseModel PostPoliza(Poliza parametros)
+        public ResponseModel PostPoliza(PolizaViewModel parametros)
         {
             ResponseModel respuesta = new ResponseModel();
             try
@@ -204,7 +204,9 @@ namespace InsuranceAppi.Models
                     FechaInicio=parametros.FechaInicio,
                     MesesCobertura=parametros.MesesCobertura,
                     ValorPoliza=parametros.ValorPoliza,
-                    IdTipoRiesgo=parametros.IdTipoRiesgo
+                    IdTipoRiesgo=parametros.IdTipoRiesgo,
+                    TipoCubrimiento = Enum.GetName(typeof(Maestros.TiposCubrimeinto), parametros.IdTipoCubrimiento),
+                    TipoRiesgo = Enum.GetName(typeof(Maestros.TiposRiesgo), parametros.IdTipoRiesgo),
 
                 };
             }

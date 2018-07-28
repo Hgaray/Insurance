@@ -27,5 +27,10 @@ namespace InsuranceViewModel
         public int ValorPoliza { get; set; }
 
         public int IdTipoRiesgo { get; set; }
+
+        public string TipoCubrimiento { get; set; }
+
+        public string TipoRiesgo { get; set; }
+
     }
 }

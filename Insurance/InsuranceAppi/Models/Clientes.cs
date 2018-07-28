@@ -70,9 +70,10 @@ namespace InsuranceAppi.Models
                     Nombres=parametros.Nombres,
                     Apellidos=parametros.Apellidos,
                     IdTipoDocumento=parametros.IdTipoDocumento,
-                    Identificacion = parametros.Identificacion
+                    Identificacion = parametros.Identificacion,
+                    NombreTipoDocumento = Enum.GetName(typeof(Maestros.TiposDocumentos), parametros.IdTipoDocumento)
 
-                };
+            };
             }
             catch (Exception)
             {

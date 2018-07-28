@@ -11,6 +11,7 @@ namespace InsuranceAppi.Controllers
     using System.Web.Http;
     using Models;
     using System.Web.Http.Description;
+    using System.Web.Script.Serialization;
     public class ClientesController : ApiController
     {
 
@@ -25,11 +26,7 @@ namespace InsuranceAppi.Controllers
 
         public IHttpActionResult GetAllCliente()
         {
-
-
-            var respuesta = clienteModel.GetAllCliente();
-
-
+            var respuesta = clienteModel.GetAllCliente();    
             return Ok(respuesta); ;
 
         }

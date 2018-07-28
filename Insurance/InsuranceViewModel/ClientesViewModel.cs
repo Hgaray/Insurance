@@ -20,5 +20,7 @@ namespace InsuranceViewModel
 
         
         public string Identificacion { get; set; }
+
+        public string NombreTipoDocumento { get; set; }
     }
 }
