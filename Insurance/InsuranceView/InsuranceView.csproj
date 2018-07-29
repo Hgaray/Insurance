@@ -96,6 +96,9 @@
     <Content Include="assets\css\style.css" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\images\ajax-loader.gif" />
+    <Content Include="assets\js\App\ClientePoliza\ClientePoliza.js" />
+    <Content Include="assets\js\App\ClientePoliza\ClientePolizaCreate.js" />
+    <Content Include="assets\js\App\ClientePoliza\ClientePolizaModify.js" />
     <Content Include="assets\js\App\Clientes.js" />
     <Content Include="assets\js\App\Poliza.js" />
     <Content Include="assets\js\App\Poliza\PolizaCreate.js" />
@@ -113,6 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClientePolizaController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PolizaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -133,6 +138,10 @@
     <Content Include="Views\Poliza\Poliza.cshtml" />
     <Content Include="Views\Poliza\PolizaCreate.cshtml" />
     <Content Include="Views\Poliza\PolizaModify.cshtml" />
+    <Content Include="Views\ClientePoliza\ClientePoliza.cshtml" />
+    <Content Include="Views\ClientePoliza\ClientePolizaCreate.cshtml" />
+    <Content Include="Views\ClientePoliza\ClientePolizaModify.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

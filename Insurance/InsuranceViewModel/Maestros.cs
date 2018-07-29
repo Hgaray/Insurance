@@ -33,7 +33,13 @@ namespace InsuranceViewModel
             MedioAlto=3,
             Alto=4
         }
-        
+
+        public enum Estados
+        {
+            Activo=1,
+            Pendiente=2,
+            Vencido=3
+        }
 
     }
 }

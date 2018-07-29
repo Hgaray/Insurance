@@ -67,7 +67,7 @@ namespace InsuranceAppi.Models
             return respuesta;
         }
 
-        public PolizaViewModel GetAPolizaById(int parametro)
+        public PolizaViewModel GetPolizaById(int parametro)
         {
             PolizaViewModel respuesta = new PolizaViewModel();
             try
@@ -92,7 +92,7 @@ namespace InsuranceAppi.Models
             return respuesta;
         }
 
-        public ResponseModel PutPoliza(Poliza parametros)
+        public ResponseModel PutPoliza(PolizaViewModel parametros)
         {
             ResponseModel respuesta = new ResponseModel();
             try

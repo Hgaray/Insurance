@@ -7,6 +7,7 @@ namespace InsuranceAppi.Models
     using System.Data.Entity.Spatial;
     using System.Linq;
     using Entities;
+    using InsuranceViewModel;
 
     [Table("ClientePoliza")]
     public partial class ClientePoliza
@@ -14,28 +15,36 @@ namespace InsuranceAppi.Models
         [Key]
         public int IdClientePoliza { get; set; }
 
-        public int? IdCliente { get; set; }
+        public int IdCliente { get; set; }
 
-        public int? IdPoliza { get; set; }
+        public int IdPoliza { get; set; }
 
-        public int? IdEstado { get; set; }
+        public int IdEstado { get; set; }
+
+        public int PorcentajeCobertura { get; set; }
 
         public virtual Clientes Clientes { get; set; }
 
         public virtual Poliza Poliza { get; set; }
 
 
-        public List<ClientePoliza> GetAllClientePoliza()
+        public List<ClientePolizaViewModel> GetAllClientePoliza()
         {
-            List<ClientePoliza> respuesta = new List<ClientePoliza>();
+            List<ClientePolizaViewModel> respuesta = new List<ClientePolizaViewModel>();
             try
             {
                 using (InsuranceContext ctx = new InsuranceContext())
                 {
-                    respuesta = ctx.ClientePoliza
+                    var clientesPolizas = ctx.ClientePoliza
                         .Include("Clientes")
                         .Include("Poliza")
                         .ToList();
+
+                    if (clientesPolizas != null)
+                    {
+                        respuesta = clientesPolizas.Select(x => ToClientesViewModel(x)).ToList();
+                    }
+                    
                 }
             }
             catch (Exception)
@@ -46,23 +55,26 @@ namespace InsuranceAppi.Models
             return respuesta;
         }
 
-        public ClientePoliza GetClientePolizaById(int parametro)
+        public ClientePolizaViewModel GetClientePolizaById(int parametro)
         {
-            var respuesta = new ClientePoliza();
+            ClientePolizaViewModel respuesta = new ClientePolizaViewModel();
+            ClientePoliza clientePoliza = new ClientePoliza();
             try
             {
                 using (InsuranceContext ctx = new InsuranceContext())
                 {
 
-                    respuesta = ctx.ClientePoliza
+                    clientePoliza = ctx.ClientePoliza
                         .Include("Clientes")
-                        .Include("Poliza").SingleOrDefault();
+                        .Include("Poliza").Where(x => x.IdClientePoliza == parametro).SingleOrDefault();
+
+                    respuesta = ToClientesViewModel(clientePoliza);
                 }
             }
             catch (Exception)
             {
 
-                return new ClientePoliza();
+                return new ClientePolizaViewModel();
             }
             return respuesta;
         }
@@ -74,15 +86,27 @@ namespace InsuranceAppi.Models
             {
                 using (InsuranceContext ctx = new InsuranceContext())
                 {
-                    var clientePoliza = ctx.ClientePoliza.Where(x => x.IdClientePoliza == parametros.IdClientePoliza).SingleOrDefault();
-                    if (clientePoliza != null)
-                    {
-                        clientePoliza.IdCliente = parametros.IdCliente;
-                        clientePoliza.IdPoliza = parametros.IdPoliza;
-                        ctx.SaveChanges();
-                        respuesta.response = true;
 
+                    if (ctx.Poliza.Where(x => x.IdPoliza == parametros.IdPoliza && x.IdTipoRiesgo == (int)Maestros.TiposRiesgo.Alto).Count() > 0 && parametros.PorcentajeCobertura > 50)
+                    {
+                        respuesta.response = false;
+                        respuesta.message = "Cuando el Riesgo de la Poliza es alto, El procentaje de cobertura no puede superar el 50%";
                     }
+                    else
+                    {
+                        var clientePoliza = ctx.ClientePoliza.Where(x => x.IdClientePoliza == parametros.IdClientePoliza).SingleOrDefault();
+                        if (clientePoliza != null)
+                        {
+                            clientePoliza.IdCliente = parametros.IdCliente;
+                            clientePoliza.IdPoliza = parametros.IdPoliza;
+                            clientePoliza.PorcentajeCobertura = parametros.PorcentajeCobertura;
+                            ctx.SaveChanges();
+                            respuesta.response = true;
+
+                        }
+                    }
+
+                   
                 }
             }
             catch (Exception ex)
@@ -97,23 +121,38 @@ namespace InsuranceAppi.Models
         }
 
 
-        public ResponseModel PostClientePoliza(ClientePoliza parametros)
+        public ResponseModel PostClientePoliza(ClientePolizaViewModel parametros)
         {
             ResponseModel respuesta = new ResponseModel();
             try
             {
                 using (InsuranceContext ctx = new InsuranceContext())
                 {
-                    ctx.ClientePoliza.Add(new ClientePoliza
+
+                    if (ctx.Poliza.Where(x => x.IdPoliza == parametros.IdPoliza && x.IdTipoRiesgo == (int)Maestros.TiposRiesgo.Alto).Count() > 0 && parametros.PorcentajeCobertura>50)
                     {
-                        IdCliente = parametros.IdCliente,
-                        IdPoliza = parametros.IdPoliza,
-                        IdEstado = 1,
+                        respuesta.response = false;
+                        respuesta.message = "Cuando el Riesgo de la Poliza es alto, El procentaje de cobertura no puede superar el 50%";
+                    }
+                    else
+                    {
+                        ctx.ClientePoliza.Add(new ClientePoliza
+                        {
+                            IdCliente = parametros.IdCliente,
+                            IdPoliza = parametros.IdPoliza,
+                            IdEstado = 1,
+                            PorcentajeCobertura = parametros.PorcentajeCobertura
 
-                    });
-                    ctx.SaveChanges();
+                        });
+                        ctx.SaveChanges();
 
-                    respuesta.response = true;
+                        respuesta.response = true;
+                    }
+
+
+                   
+
+                   
                 }
             }
             catch (Exception ex)
@@ -153,6 +192,38 @@ namespace InsuranceAppi.Models
             }
             return respuesta;
 
+        }
+
+
+
+
+        public ClientePolizaViewModel ToClientesViewModel(ClientePoliza parametros)
+        {
+
+            try
+            {
+                return new ClientePolizaViewModel()
+                {
+                    IdClientePoliza=parametros.IdClientePoliza,
+                    IdCliente = parametros.IdCliente,
+                    IdPoliza = parametros.IdPoliza,
+                    IdEstado = parametros.IdEstado,
+                    PorcentajeCobertura = parametros.PorcentajeCobertura,
+                    NombreEstado = Enum.GetName(typeof(Maestros.Estados), parametros.IdEstado),
+                    Clientes= new ClientesViewModel() { Nombres = parametros.Clientes.Nombres,
+                                                        Apellidos =parametros.Clientes.Apellidos,
+                                                        Identificacion =parametros.Clientes.Identificacion,
+                                                        IdTipoDocumento=parametros.Clientes.IdTipoDocumento},
+                    Poliza= new PolizaViewModel() { Nombre=parametros.Poliza.Nombre,
+                                                    Descripcion=parametros.Poliza.Descripcion}
+
+                };
+            }
+            catch (Exception)
+            {
+
+                return new ClientePolizaViewModel();
+            }
         }
     }
 

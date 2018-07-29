@@ -15,6 +15,10 @@ namespace InsuranceViewModel
 
         public int IdEstado { get; set; }
 
+        public int PorcentajeCobertura { get; set; }
+
+        public string NombreEstado { get; set; }
+
         public virtual ClientesViewModel Clientes { get; set; }
 
         public virtual PolizaViewModel Poliza { get; set; }

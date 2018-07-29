@@ -9,10 +9,14 @@ namespace InsuranceAppi.Controllers
     using System.Net.Http;
     using System.Web.Http;
     using Models;
+    using InsuranceViewModel;
+    using InsuranceAppi.Entities;
+
     public class ClientePolizaController : ApiController
     {
 
         ClientePoliza clientePolizaModel = new ClientePoliza();
+        Poliza polizaModel = new Poliza();
 
         public ClientePolizaController()
         {
@@ -22,16 +26,44 @@ namespace InsuranceAppi.Controllers
 
         public IHttpActionResult GetAllClientePoliza()
         {
-            var respuesta = clientePolizaModel.GetAllClientePoliza();
+            var ClientesPolizas = clientePolizaModel.GetAllClientePoliza();
+
+            var respuesta = ClientesPolizas.Select(x => new
+            {
+                x.IdClientePoliza,
+                x.IdCliente,
+                x.IdPoliza,
+                x.IdEstado,
+                x.NombreEstado,
+                x.PorcentajeCobertura,
+                NombreCliente = (x.Clientes.Nombres + " " + x.Clientes.Apellidos),
+                NombrePoliza = x.Poliza.Nombre,
+                x.Poliza.MesesCobertura,
+                FechaInicioPoliza = x.Poliza.FechaInicio
+            }).ToList();
 
             return Ok(respuesta);
         }
 
         public IHttpActionResult GetClientePolizaById(int parametro)
-        {
-            var respuesta = clientePolizaModel.GetClientePolizaById(parametro);
+        {            
+
+
+            var ClientePoliza = clientePolizaModel.GetClientePolizaById(parametro);
+            var respuesta = new
+            {
+                IdClientePoliza= ClientePoliza.IdClientePoliza,
+                PorcentajeCobertura=ClientePoliza.PorcentajeCobertura,                
+                NombreCliente = (ClientePoliza.Clientes.Nombres + " " + ClientePoliza.Clientes.Apellidos),
+                NombrePoliza = ClientePoliza.Poliza.Nombre,
+                IdCliente= ClientePoliza.IdCliente,
+                IdPoliza=ClientePoliza.IdPoliza
+
+            };
 
             return Ok(respuesta);
+
+           
         }
 
         public IHttpActionResult PutClientePoliza(ClientePoliza parametros)
@@ -41,10 +73,9 @@ namespace InsuranceAppi.Controllers
             return Ok(respuesta);
         }
 
-        public IHttpActionResult PostClientePoliza(ClientePoliza parametros)
-        {
+        public IHttpActionResult PostClientePoliza(ClientePolizaViewModel parametros)
+        {            
             var respuesta = clientePolizaModel.PostClientePoliza(parametros);
-
             return Ok(respuesta);
         }
 
@@ -54,5 +85,8 @@ namespace InsuranceAppi.Controllers
 
             return Ok(respuesta);
         }
+
+        
+
     }
 }

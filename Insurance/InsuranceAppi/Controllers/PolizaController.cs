@@ -30,16 +30,16 @@ namespace InsuranceAppi.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetAPolizaById(int parametro)
+        public IHttpActionResult GetPolizaById(int parametro)
         {
 
-            var respuesta = polizaModel.GetAPolizaById(parametro);
+            var respuesta = polizaModel.GetPolizaById(parametro);
             return Ok(respuesta);
         }
 
 
         [HttpPut]
-        public IHttpActionResult PutPoliza(Poliza parametros)
+        public IHttpActionResult PutPoliza(PolizaViewModel parametros)
         {
             var respuesta = polizaModel.PutPoliza(parametros);
             return Ok(respuesta);

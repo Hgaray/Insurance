@@ -21,6 +21,8 @@ function EliminarPoliza(parametro)
         success: function (respuesta) {
 
             if (respuesta.response) {
+
+                alert("Se ha modificado con exito el registro");
                 window.location.href = "/Poliza/Poliza";
             }
 
@@ -40,8 +42,7 @@ function GetAllPoliza() {
 
 
     datos = {};
-
-    var form = $("#frm-alumno-curso");
+    
     $.ajax({
         datatype: 'JSON',
         type: 'GET',

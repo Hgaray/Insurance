@@ -29,7 +29,7 @@ function GuardarPoliza()
     parametros.TipoRiesgo = "";
 
     parametros = JSON.stringify(parametros);
-    var id = 1;
+   
 
     $.ajax({
         url: '../Insurance/api/Poliza/PostPoliza',
@@ -40,6 +40,7 @@ function GuardarPoliza()
 
             if (respuesta.response)
             {
+                alert("Se ha agregado con exito el registro");
                 window.location.href ="/Poliza/Poliza";
             }
            

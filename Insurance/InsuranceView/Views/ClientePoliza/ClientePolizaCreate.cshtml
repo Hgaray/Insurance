@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Asociar Cliente Poliza";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title </title>
+
+
+    <script src="~/assets/js/App/ClientePoliza/ClientePolizaCreate.js"></script>
+</head>
+<body>
+    <div>
+
+        <div class="row bg-title">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h4 class="page-title">@ViewBag.Title</h4></div>
+
+                <div class="panel-body">
+
+                    
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Cliente</label>
+                        <div class="col-4">
+                            <select id="selCliente" class="form-control"></select>
+                        </div>
+                    </div>
+                    
+
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Poliza</label>
+                        <div class="col-4">
+                            <select id="selPoliza" class="form-control"></select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Porcentaje Cobertura</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon">%</div>
+                            <input type="number" class="form-control" id="txtPorcentajeCobertura">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <button type="button" class="btn btn-primary pull-right" id="btnGuardar">Guardar Poliza</button>
+                        <a href="/ClientePoliza/ClientePoliza" class="btn btn-warning pull-right">Cancelar</a>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</body>
+</html>

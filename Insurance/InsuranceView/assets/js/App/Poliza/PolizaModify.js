@@ -8,11 +8,59 @@
 
 
     consultarPoliza(idPoliza);
-    
+
+
+    $("#btnGuardar").click(function () {
+
+        ModificarPoliza();
+    });
 
 });
 
 
+
+
+
+
+function ModificarPoliza()
+{
+    var parametros = new Object();
+
+    parametros.IdPoliza = $("#lblIdPoliza").text();
+    parametros.Nombre = $("#txtNombrePoliza").val();
+    parametros.Descripcion = $("#txtDescripcion").val();
+    parametros.IdTipoCubrimiento = $("#selTipoCubrimeinto").val();
+    parametros.FechaInicio = $("#dtFechaInicioPoliza").val();
+    parametros.MesesCobertura = $("#txtMesesCobertura").val();
+    parametros.ValorPoliza = $("#txtValorPoliza").val();
+    parametros.IdTipoRiesgo = $("#selTipoRiesgo").val();
+    parametros.TipoCubrimiento = "";
+    parametros.TipoRiesgo = "";
+
+    parametros = JSON.stringify(parametros);
+
+
+    $.ajax({
+        url: '../../Insurance/api/Poliza/PutPoliza',
+        type: 'PUT',
+        data: parametros,
+        contentType: 'application/json; charset=utf-8',
+        success: function (respuesta) {
+
+            if (respuesta.response) {
+                alert("Se ha modificado con exito el registro");
+                window.location.href = "/Poliza/Poliza";
+            }
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus + ' ' + errorThrown);
+        }
+
+    });
+
+
+}
 
 
 function consultarPoliza(parametro)
@@ -20,7 +68,7 @@ function consultarPoliza(parametro)
 
 
     $.ajax({
-        url: '../../Insurance/api/Poliza/GetAPolizaById/?parametro=' + parametro,
+        url: '../../Insurance/api/Poliza/GetPolizaById/?parametro=' + parametro,
         datatype: 'JSON',
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
@@ -42,7 +90,7 @@ function consultarPoliza(parametro)
 
             $("#selTipoCubrimeinto").val(respuesta.IdTipoCubrimiento).attr("selected", "selected");
             $("#selTipoRiesgo").val(respuesta.IdTipoRiesgo).attr("selected", "selected");
-            
+            $("#txtDescripcion").val(respuesta.Descripcion);
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -92,4 +140,4 @@ $.get = function (key) {
     } else {
         return results[1];
     }
-};  
+}

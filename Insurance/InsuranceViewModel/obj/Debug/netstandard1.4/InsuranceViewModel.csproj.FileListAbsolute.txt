@@ -4,4 +4,3 @@ E:\Insurance\Insurance\InsuranceViewModel\bin\Debug\netstandard1.4\InsuranceView
 E:\Insurance\Insurance\InsuranceViewModel\obj\Debug\netstandard1.4\InsuranceViewModel.AssemblyInfo.cs
 E:\Insurance\Insurance\InsuranceViewModel\obj\Debug\netstandard1.4\InsuranceViewModel.dll
 E:\Insurance\Insurance\InsuranceViewModel\obj\Debug\netstandard1.4\InsuranceViewModel.pdb
-E:\Insurance\Insurance\InsuranceViewModel\obj\Debug\netstandard1.4\InsuranceViewModel.csprojResolveAssemblyReference.cache

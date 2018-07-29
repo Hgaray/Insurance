@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "ClientePoliza";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <script src="~/assets/js/App/ClientePoliza/ClientePoliza.js"></script>
+
+</head>
+<body>
+    <div>
+        <div class="row bg-title">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h4 class="page-title">@ViewBag.Title</h4></div>
+
+                <div class="panel-body">
+                    <a href="~/Home/Index" class="btn btn-success">Menu</a>
+                    <a href="~/ClientePoliza/ClientePolizaCreate" class="btn btn-success ">Nuevo</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <table id="tblClientePoliza" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="display:none;">Id Poliza</th>
+                        <th>Nombre Cliente</th>
+                        <th>Nombre Poliza</th>
+                        <th>%Cobertura</th>
+                        <th>Estado</th>
+                        <th>Opciones</th>
+
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>
