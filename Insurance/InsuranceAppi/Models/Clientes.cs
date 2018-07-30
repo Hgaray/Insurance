@@ -8,7 +8,7 @@ namespace InsuranceAppi.Models
     using System.Linq;
     using InsuranceViewModel;
 
-    public partial class Clientes
+    public partial class Clientes: IClientes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Clientes()
@@ -34,6 +34,11 @@ namespace InsuranceAppi.Models
         public virtual ICollection<ClientePoliza> ClientePoliza { get; set; }
 
 
+
+        public static Clientes ObtenerInstancia()
+        {
+            return new Clientes();
+        }
 
 
 

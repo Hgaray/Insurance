@@ -15,12 +15,14 @@ namespace InsuranceAppi.Controllers
     public class ClientePolizaController : ApiController
     {
 
-        ClientePoliza clientePolizaModel = new ClientePoliza();
+       
         Poliza polizaModel = new Poliza();
 
+
+        IClientePoliza clientePolizaModel;
         public ClientePolizaController()
         {
-
+            clientePolizaModel = new ClientePoliza();
         }
 
 

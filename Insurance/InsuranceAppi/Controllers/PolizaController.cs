@@ -13,12 +13,12 @@ namespace InsuranceAppi.Controllers
 
     public class PolizaController : ApiController
     {
-        Poliza polizaModel = new Poliza();
+        IPoliza polizaModel;
 
 
         public PolizaController()
         {
-
+            polizaModel = new Poliza();
         }
 
         [HttpGet]

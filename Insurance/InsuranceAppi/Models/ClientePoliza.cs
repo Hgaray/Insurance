@@ -10,7 +10,7 @@ namespace InsuranceAppi.Models
     using InsuranceViewModel;
 
     [Table("ClientePoliza")]
-    public partial class ClientePoliza
+    public partial class ClientePoliza:IClientePoliza
     {
         [Key]
         public int IdClientePoliza { get; set; }

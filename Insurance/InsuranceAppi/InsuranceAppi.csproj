@@ -90,7 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -103,7 +105,11 @@
     </Compile>
     <Compile Include="Models\ClientePoliza.cs" />
     <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\ClientesMock.cs" />
+    <Compile Include="Models\IClientePoliza.cs" />
+    <Compile Include="Models\IClientes.cs" />
     <Compile Include="Models\InsuranceContext.cs" />
+    <Compile Include="Models\IPoliza.cs" />
     <Compile Include="Models\Poliza.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

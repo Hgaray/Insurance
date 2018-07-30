@@ -11,7 +11,7 @@ namespace InsuranceAppi.Models
     using System.Runtime;
 
     [Table("Poliza")]
-    public partial class Poliza
+    public partial class Poliza: IPoliza
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Poliza()

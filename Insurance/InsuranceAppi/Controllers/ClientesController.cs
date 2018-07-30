@@ -15,13 +15,24 @@ namespace InsuranceAppi.Controllers
     public class ClientesController : ApiController
     {
 
+        private IClientes clienteModel;
+
+        
+
         public ClientesController()
         {
-
+            clienteModel = Clientes.ObtenerInstancia();
         }
 
-        public Clientes clienteModel = new Clientes();
+        public ClientesController(ClientesMock parametro)
+        {
+            clienteModel = ClientesMock.ObtenerInstancia();
+        }
 
+        public static ClientesController ObtenerInstancia(ClientesMock clienteMock)
+        {
+            return new ClientesController(clienteMock);
+        }
 
 
         public IHttpActionResult GetAllCliente()
