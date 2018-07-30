@@ -5,13 +5,49 @@ $(document).ready(function () {
     GetAllCliente();
     GetAllPoliza();
 
+    
+
     $("#btnGuardar").click(function () {
 
         GuardarClientePoliza();
     });
 
+
+    $("#selPoliza").change(function () {
+
+        var parametro = $("#selPoliza").val();
+        consultarDetallePoliza(parametro);
+    });
+    
 });
 
+
+
+function consultarDetallePoliza(parametro) {
+
+
+    $.ajax({
+        url: '../../Insurance/api/Poliza/GetPolizaById/?parametro=' + parametro,
+        datatype: 'JSON',
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: parametro,
+        success: function (respuesta) {
+
+            $("#lblTipoRiesgo").text(respuesta.TipoRiesgo);
+            $("#lblMeses").text(respuesta.MesesCobertura);
+            $("#lblFechaInicio").text(respuesta.MesesCobertura); 
+            $("#lblValorPoliza").text(respuesta.ValorPoliza);
+            $("#lblTipoCubrimiento").text(respuesta.TipoCubrimiento);
+            $("#lblDescripcion").text(respuesta.Descripcion);
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus + ' ' + errorThrown);
+        }
+
+    });
+}
 
 
 function GuardarClientePoliza()
@@ -35,7 +71,7 @@ function GuardarClientePoliza()
         success: function (respuesta) {
 
             if (respuesta.response) {
-                alert("Se ha modificado con exito el registro");
+                alert("Se ha Guardado con exito el registro");
                 window.location.href = "/ClientePoliza/ClientePoliza";
             }
             else
@@ -73,6 +109,10 @@ function GetAllPoliza() {
             });
 
             $("#selPoliza").append(SelectOptions);
+
+            var parametro = $("#selPoliza").val();
+            consultarDetallePoliza(parametro);
+            
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ' ' + errorThrown);

@@ -2,38 +2,10 @@
 
 
     GetAllPoliza();
-
-
    
 });
 
 
-function EliminarPoliza(parametro)
-{
-     
-
-    $.ajax({
-        url: '../Insurance/api/Poliza/DeletePoliza/?parametro=' + parametro,
-        datatype: 'JSON',
-        type: 'DELETE',       
-        contentType: 'application/json; charset=utf-8',
-        data: parametro,
-        success: function (respuesta) {
-
-            if (respuesta.response) {
-
-                alert("Se ha modificado con exito el registro");
-                window.location.href = "/Poliza/Poliza";
-            }
-
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus + ' ' + errorThrown);
-        }
-
-    });
-
-}
 
 
 
@@ -76,3 +48,30 @@ function GetAllPoliza() {
     });
 }
 
+function EliminarPoliza(parametro) {
+
+    $.ajax({
+        url: '../Insurance/api/Poliza/DeletePoliza/?parametro=' + parametro,
+        datatype: 'JSON',
+        type: 'DELETE',
+        contentType: 'application/json; charset=utf-8',
+        data: parametro,
+        success: function (respuesta) {
+
+            if (respuesta.response) {
+
+                alert("Se ha Eliminado con exito el registro");
+                window.location.href = "/Poliza/Poliza";
+            }
+            else {
+                alert("La poliza se encuentra asignada a un cliente y por lo tanto no se peude eliminar");
+            }
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus + ' ' + errorThrown);
+        }
+
+    });
+
+}

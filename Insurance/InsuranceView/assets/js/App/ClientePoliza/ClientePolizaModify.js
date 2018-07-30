@@ -12,6 +12,32 @@
 });
 
 
+function consultarDetallePoliza(parametro) {
+
+
+    $.ajax({
+        url: '../../Insurance/api/Poliza/GetPolizaById/?parametro=' + parametro,
+        datatype: 'JSON',
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: parametro,
+        success: function (respuesta) {
+
+            $("#lblTipoRiesgo").text(respuesta.TipoRiesgo);
+            $("#lblMeses").text(respuesta.MesesCobertura);
+            $("#lblFechaInicio").text(respuesta.MesesCobertura);
+            $("#lblValorPoliza").text(respuesta.ValorPoliza);
+            $("#lblTipoCubrimiento").text(respuesta.TipoCubrimiento);
+            $("#lblDescripcion").text(respuesta.Descripcion);
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus + ' ' + errorThrown);
+        }
+
+    });
+}
+
 function ModificarClientePoliza()
 {
     parametros = {};
@@ -70,6 +96,9 @@ function consultarClientePoliza(parametro)
 
             $("#lblIdClientePoliza").text(respuesta.IdClientePoliza);
 
+
+            var parametro = $("#selPoliza").val();
+            consultarDetallePoliza(parametro);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ' ' + errorThrown);

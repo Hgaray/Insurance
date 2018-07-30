@@ -21,7 +21,7 @@ function EliminarClientePoliza(parametro) {
         success: function (respuesta) {
 
             if (respuesta.response) {
-                alert("Se ha agregado con exito el registro");
+                alert("Se ha Eliminado con exito el registro");
                 window.location.href = "/ClientePoliza/ClientePoliza";
             }
 

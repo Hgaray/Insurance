@@ -168,11 +168,17 @@ namespace InsuranceAppi.Models
                 using (InsuranceContext ctx = new InsuranceContext())
                 {
                     var poliza = ctx.Poliza.Where(x => x.IdPoliza == parametro).SingleOrDefault();
-                    if (poliza != null)
+
+                    if (poliza != null && ctx.ClientePoliza.Where(x => x.IdPoliza == poliza.IdPoliza).Count() == 0)
                     {
                         ctx.Entry(poliza).State = System.Data.Entity.EntityState.Deleted;
                         ctx.SaveChanges();
                         respuesta.response = true;
+
+                    }
+                    else
+                    {
+                        respuesta.response = false;
 
                     }
                 }
