@@ -11,7 +11,7 @@ namespace InsuranceAppi.Models
     using System.Runtime;
 
     [Table("Poliza")]
-    public partial class Poliza: IPoliza
+    public partial class Poliza : IPoliza
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Poliza()
@@ -56,8 +56,10 @@ namespace InsuranceAppi.Models
                     {
                         respuesta = polizas.Select(x => ToPolizaViewModel(x)).ToList();
                     }
-                    
+
                 }
+
+                ejemplosp();
             }
             catch (Exception)
             {
@@ -74,14 +76,14 @@ namespace InsuranceAppi.Models
             {
                 using (InsuranceContext ctx = new InsuranceContext())
                 {
-                    
+
                     var poliza = ctx.Poliza.Where(x => x.IdPoliza == parametro).SingleOrDefault();
 
                     if (poliza != null)
                     {
                         respuesta = ToPolizaViewModel(poliza);
                     }
-                    
+
                 }
             }
             catch (Exception)
@@ -100,7 +102,7 @@ namespace InsuranceAppi.Models
                 using (InsuranceContext ctx = new InsuranceContext())
                 {
                     var poliza = ctx.Poliza.Where(x => x.IdPoliza == parametros.IdPoliza).SingleOrDefault();
-                    if(poliza != null)
+                    if (poliza != null)
                     {
                         poliza.Nombre = parametros.Nombre;
                         poliza.Descripcion = parametros.Descripcion;
@@ -110,8 +112,8 @@ namespace InsuranceAppi.Models
                         poliza.ValorPoliza = parametros.ValorPoliza;
                         poliza.IdTipoRiesgo = parametros.IdTipoRiesgo;
                         ctx.SaveChanges();
-                        respuesta.response = true;                        
-                            
+                        respuesta.response = true;
+
                     }
                 }
             }
@@ -120,11 +122,11 @@ namespace InsuranceAppi.Models
                 respuesta.response = false;
                 respuesta.message = ex.InnerException.Message.ToString();
                 return respuesta;
-               
+
             }
             return respuesta;
 
-        }       
+        }
 
 
         public ResponseModel PostPoliza(PolizaViewModel parametros)
@@ -134,16 +136,17 @@ namespace InsuranceAppi.Models
             {
                 using (InsuranceContext ctx = new InsuranceContext())
                 {
-                    ctx.Poliza.Add(new Poliza() {
+                    ctx.Poliza.Add(new Poliza()
+                    {
 
-                        
+
                         Nombre = parametros.Nombre,
-                        Descripcion=parametros.Descripcion,
-                        IdTipoCubrimiento=parametros.IdTipoCubrimiento,
-                        FechaInicio=parametros.FechaInicio,
-                        MesesCobertura=parametros.MesesCobertura,
-                        ValorPoliza=parametros.ValorPoliza,
-                        IdTipoRiesgo=parametros.IdTipoRiesgo
+                        Descripcion = parametros.Descripcion,
+                        IdTipoCubrimiento = parametros.IdTipoCubrimiento,
+                        FechaInicio = parametros.FechaInicio,
+                        MesesCobertura = parametros.MesesCobertura,
+                        ValorPoliza = parametros.ValorPoliza,
+                        IdTipoRiesgo = parametros.IdTipoRiesgo
                     });
                     ctx.SaveChanges();
 
@@ -203,14 +206,14 @@ namespace InsuranceAppi.Models
                 return new PolizaViewModel()
                 {
 
-                    IdPoliza=parametros.IdPoliza,
-                    Nombre=parametros.Nombre,
-                    Descripcion=parametros.Descripcion,
-                    IdTipoCubrimiento=parametros.IdTipoCubrimiento,
-                    FechaInicio=parametros.FechaInicio,
-                    MesesCobertura=parametros.MesesCobertura,
-                    ValorPoliza=parametros.ValorPoliza,
-                    IdTipoRiesgo=parametros.IdTipoRiesgo,
+                    IdPoliza = parametros.IdPoliza,
+                    Nombre = parametros.Nombre,
+                    Descripcion = parametros.Descripcion,
+                    IdTipoCubrimiento = parametros.IdTipoCubrimiento,
+                    FechaInicio = parametros.FechaInicio,
+                    MesesCobertura = parametros.MesesCobertura,
+                    ValorPoliza = parametros.ValorPoliza,
+                    IdTipoRiesgo = parametros.IdTipoRiesgo,
                     TipoCubrimiento = Enum.GetName(typeof(Maestros.TiposCubrimeinto), parametros.IdTipoCubrimiento),
                     TipoRiesgo = Enum.GetName(typeof(Maestros.TiposRiesgo), parametros.IdTipoRiesgo),
 
@@ -220,6 +223,32 @@ namespace InsuranceAppi.Models
             {
 
                 return new PolizaViewModel();
+            }
+        }
+
+
+        public void ejemplosp()
+        {
+            List<PolizaViewModel> respuesta = new List<PolizaViewModel>();
+
+            using (InsuranceContext ctx = new InsuranceContext())
+            {
+
+                var listaPolizas = ctx.Database.SqlQuery<Poliza>("Polizas_Sel").ToList();
+
+                respuesta = listaPolizas.Select(x => ToPolizaViewModel(x)).ToList();
+
+                int a = 0;
+
+
+                //var lects = pc.Database.SqlQuery<Lectura>(
+                //"GetLecturasEnRangoDeFechas @fecha, @idParteMaquina, @inicio, @inicioMasDuracion, @dia",
+                //new SqlParameter("@fecha", fecha),
+                //new SqlParameter("@idParteMaquina", partemaquina.Id),
+                //new SqlParameter("@inicio", inicio.TotalSeconds),
+                //new SqlParameter("@inicioMasDuracion", inicioMasDuracion.TotalSeconds),
+                //new SqlParameter("@dia", dia));
+
             }
         }
     }
